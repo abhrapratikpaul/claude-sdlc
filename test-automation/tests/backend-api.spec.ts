@@ -48,11 +48,8 @@ startxref
       }
     }
 
-    // Upload file
-    // Use setInputFiles instead
-    await page.locator('#selectFileBtn').click();
-    const fileChooser = await fileChooserPromise;
-    await fileChooser.setFiles(path.join(fixturesDir, 'storage-test.pdf'));
+    // Upload file (headless-safe)
+    await page.setInputFiles('#fileInput', path.join(fixturesDir, 'storage-test.pdf'));
 
     await page.locator('#uploadBtn').click();
 
@@ -77,10 +74,7 @@ startxref
     fs.writeFileSync(testFile, content1);
 
     // First upload
-    let fileChooserPromise = page.waitForEvent('filechooser');
-    await page.locator('#selectFileBtn').click();
-    let fileChooser = await fileChooserPromise;
-    await fileChooser.setFiles(testFile);
+    await page.setInputFiles('#fileInput', testFile);
     await page.locator('#uploadBtn').click();
 
     const messageArea = page.locator('#messageArea');
@@ -94,10 +88,7 @@ startxref
     await page.reload();
 
     // Second upload (same filename)
-    fileChooserPromise = page.waitForEvent('filechooser');
-    await page.locator('#selectFileBtn').click();
-    fileChooser = await fileChooserPromise;
-    await fileChooser.setFiles(testFile);
+    await page.setInputFiles('#fileInput', testFile);
     await page.locator('#uploadBtn').click();
 
     await expect(messageArea).toContainText('File uploaded successfully', { timeout: 10000 });

@@ -29,11 +29,8 @@ test.describe('FR-005: Upload Progress Tracking', () => {
 
     const fixturesDir = path.join(__dirname, '../fixtures');
 
-    // Select file
-    // Use setInputFiles instead
-    await page.locator('#selectFileBtn').click();
-    const fileChooser = await fileChooserPromise;
-    await fileChooser.setFiles(path.join(fixturesDir, 'medium.pdf'));
+    // Select file (headless-safe)
+    await page.setInputFiles('#fileInput', path.join(fixturesDir, 'medium.pdf'));
 
     // Start upload
     await page.locator('#uploadBtn').click();
@@ -56,11 +53,8 @@ test.describe('FR-005: Upload Progress Tracking', () => {
 
     const fixturesDir = path.join(__dirname, '../fixtures');
 
-    // Select file
-    // Use setInputFiles instead
-    await page.locator('#selectFileBtn').click();
-    const fileChooser = await fileChooserPromise;
-    await fileChooser.setFiles(path.join(fixturesDir, 'medium.pdf'));
+    // Select file (headless-safe)
+    await page.setInputFiles('#fileInput', path.join(fixturesDir, 'medium.pdf'));
 
     // Start upload
     await page.locator('#uploadBtn').click();
@@ -87,11 +81,8 @@ test.describe('FR-005: Upload Progress Tracking', () => {
 
     const fixturesDir = path.join(__dirname, '../fixtures');
 
-    // Select file
-    // Use setInputFiles instead
-    await page.locator('#selectFileBtn').click();
-    const fileChooser = await fileChooserPromise;
-    await fileChooser.setFiles(path.join(fixturesDir, 'medium.pdf'));
+    // Select file (headless-safe)
+    await page.setInputFiles('#fileInput', path.join(fixturesDir, 'medium.pdf'));
 
     // Start upload
     await page.locator('#uploadBtn').click();
@@ -131,11 +122,8 @@ test.describe('FR-005: Upload Progress Tracking', () => {
 
     const fixturesDir = path.join(__dirname, '../fixtures');
 
-    // Select file
-    // Use setInputFiles instead
-    await page.locator('#selectFileBtn').click();
-    const fileChooser = await fileChooserPromise;
-    await fileChooser.setFiles(path.join(fixturesDir, 'medium.pdf'));
+    // Select file (headless-safe)
+    await page.setInputFiles('#fileInput', path.join(fixturesDir, 'medium.pdf'));
 
     // Start upload
     await page.locator('#uploadBtn').click();

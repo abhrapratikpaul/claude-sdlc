@@ -1,5 +1,21 @@
 import { test, expect } from '@playwright/test';
 
+function ensureFixtureFile(relativeName: string, content: string | Buffer): string {
+  const path = require('path');
+  const fs = require('fs');
+
+  const fixturesDir = path.join(__dirname, '../fixtures');
+  if (!fs.existsSync(fixturesDir)) {
+    fs.mkdirSync(fixturesDir, { recursive: true });
+  }
+
+  const filePath = path.join(fixturesDir, relativeName);
+  if (!fs.existsSync(filePath)) {
+    fs.writeFileSync(filePath, content);
+  }
+  return filePath;
+}
+
 /**
  * Test Suite: Non-Functional Requirements - Accessibility and UI
  * Covers: AC-023, AC-024 (NFR-001), AC-025, AC-026, AC-027 (NFR-002),
@@ -12,7 +28,10 @@ test.describe('NFR-001: Upload Timeout', () => {
     // This test simulates a slow upload by intercepting the request
     await page.goto('/');
 
-    const fixturesDir = require('path').join(__dirname, '../fixtures');
+    const validPdfPath = ensureFixtureFile(
+      'valid.pdf',
+      '%PDF-1.4\n1 0 obj\n<< /Type /Catalog /Pages 2 0 R >>\nendobj\nxref\n0 2\n0000000000 65535 f\n0000000009 00000 n\ntrailer\n<< /Size 2 /Root 1 0 R >>\nstartxref\n58\n%%EOF'
+    );
 
     // Intercept upload and delay indefinitely
     await page.route('**/upload', async route => {
@@ -21,11 +40,8 @@ test.describe('NFR-001: Upload Timeout', () => {
       route.abort('timedout');
     });
 
-    // Select and upload file
-    // Use setInputFiles instead
-    await page.locator('#selectFileBtn').click();
-    const fileChooser = await fileChooserPromise;
-    await fileChooser.setFiles(require('path').join(fixturesDir, 'valid.pdf'));
+    // Select and upload file (headless-safe)
+    await page.setInputFiles('#fileInput', validPdfPath);
 
     const startTime = Date.now();
     await page.locator('#uploadBtn').click();
@@ -44,16 +60,16 @@ test.describe('NFR-001: Upload Timeout', () => {
   test('AC-024: Timeout displays error and allows retry', async ({ page }) => {
     await page.goto('/');
 
-    const fixturesDir = require('path').join(__dirname, '../fixtures');
+    const validPdfPath = ensureFixtureFile(
+      'valid.pdf',
+      '%PDF-1.4\n1 0 obj\n<< /Type /Catalog /Pages 2 0 R >>\nendobj\nxref\n0 2\n0000000000 65535 f\n0000000009 00000 n\ntrailer\n<< /Size 2 /Root 1 0 R >>\nstartxref\n58\n%%EOF'
+    );
 
     // Intercept and timeout
     await page.route('**/upload', route => route.abort('timedout'));
 
-    // Upload file
-    // Use setInputFiles instead
-    await page.locator('#selectFileBtn').click();
-    const fileChooser = await fileChooserPromise;
-    await fileChooser.setFiles(require('path').join(fixturesDir, 'valid.pdf'));
+    // Upload file (headless-safe)
+    await page.setInputFiles('#fileInput', validPdfPath);
 
     await page.locator('#uploadBtn').click();
 
@@ -98,12 +114,20 @@ test.describe('NFR-002: Web Accessibility', () => {
     focused = await page.evaluate(() => document.activeElement?.id);
     expect(focused).toBe('uploadBtn');
 
-    // Verify buttons can be activated with keyboard
+    // Verify select button triggers hidden input click via keyboard (headless-safe)
+    await page.evaluate(() => {
+      const fileInput = document.getElementById('fileInput') as HTMLInputElement | null;
+      (window as any).__fileInputClicked = false;
+      fileInput?.addEventListener('click', () => {
+        (window as any).__fileInputClicked = true;
+      });
+    });
+
     await page.locator('#selectFileBtn').focus();
-    // Use setInputFiles instead
     await page.keyboard.press('Enter');
-    const fileChooser = await fileChooserPromise;
-    expect(fileChooser).toBeTruthy();
+
+    const wasClicked = await page.evaluate(() => (window as any).__fileInputClicked);
+    expect(wasClicked).toBe(true);
   });
 
   test('AC-027: Interface targets WCAG 2.1 Level AA compliance', async ({ page }) => {
@@ -196,27 +220,30 @@ test.describe('NFR-005: Performance', () => {
     await page.goto('/');
 
     // Test button click responsiveness
+    await page.evaluate(() => {
+      const fileInput = document.getElementById('fileInput') as HTMLInputElement | null;
+      (window as any).__fileInputClicked = false;
+      fileInput?.addEventListener('click', () => {
+        (window as any).__fileInputClicked = true;
+      });
+    });
+
     const startTime = Date.now();
-    // Use setInputFiles instead
     await page.locator('#selectFileBtn').click();
-    await fileChooserPromise;
+    const wasClicked = await page.evaluate(() => (window as any).__fileInputClicked);
     const elapsed = Date.now() - startTime;
 
+    expect(wasClicked).toBe(true);
     expect(elapsed).toBeLessThan(200);
   });
 
   test('Validation feedback appears within 200ms', async ({ page }) => {
     await page.goto('/');
 
-    const fixturesDir = require('path').join(__dirname, '../fixtures');
-
-    // Select invalid file
-    // Use setInputFiles instead
-    await page.locator('#selectFileBtn').click();
-    const fileChooser = await fileChooserPromise;
+    const txtPath = ensureFixtureFile('document.txt', 'This is a text file, not a PDF');
 
     const startTime = Date.now();
-    await fileChooser.setFiles(require('path').join(fixturesDir, 'document.txt'));
+    await page.setInputFiles('#fileInput', txtPath);
 
     // Wait for error message
     const messageArea = page.locator('#messageArea');
@@ -245,11 +272,18 @@ test.describe('NFR-006: Browser Compatibility', () => {
     await expect(page.locator('#selectFileBtn')).toBeVisible();
     await expect(page.locator('#uploadBtn')).toBeVisible();
 
-    // Test basic interaction
-    // Use setInputFiles instead
+    // Test basic interaction (headless-safe)
+    await page.evaluate(() => {
+      const fileInput = document.getElementById('fileInput') as HTMLInputElement | null;
+      (window as any).__fileInputClicked = false;
+      fileInput?.addEventListener('click', () => {
+        (window as any).__fileInputClicked = true;
+      });
+    });
+
     await page.locator('#selectFileBtn').click();
-    const fileChooser = await fileChooserPromise;
-    expect(fileChooser).toBeTruthy();
+    const wasClicked = await page.evaluate(() => (window as any).__fileInputClicked);
+    expect(wasClicked).toBe(true);
 
     // Log browser for verification
     console.log(`Test passed in browser: ${browserName}`);
@@ -259,10 +293,17 @@ test.describe('NFR-006: Browser Compatibility', () => {
     await page.goto('/');
 
     // Verify JavaScript event handlers work
-    // Use setInputFiles instead
+    await page.evaluate(() => {
+      const fileInput = document.getElementById('fileInput') as HTMLInputElement | null;
+      (window as any).__fileInputClicked = false;
+      fileInput?.addEventListener('click', () => {
+        (window as any).__fileInputClicked = true;
+      });
+    });
+
     await page.locator('#selectFileBtn').click();
-    const fileChooser = await fileChooserPromise;
-    expect(fileChooser).toBeTruthy();
+    const wasClicked = await page.evaluate(() => (window as any).__fileInputClicked);
+    expect(wasClicked).toBe(true);
   });
 
   test('CSS styles are applied', async ({ page }) => {
