@@ -45,11 +45,8 @@ startxref
 
     const fixturesDir = path.join(__dirname, '../fixtures');
 
-    // Select and upload file
-    // Use setInputFiles instead
-    await page.locator('#selectFileBtn').click();
-    const fileChooser = await fileChooserPromise;
-    await fileChooser.setFiles(path.join(fixturesDir, 'success-test.pdf'));
+    // Select and upload file (headless-safe)
+    await page.setInputFiles('#fileInput', path.join(fixturesDir, 'success-test.pdf'));
 
     await page.locator('#uploadBtn').click();
 
@@ -63,11 +60,8 @@ startxref
 
     const fixturesDir = path.join(__dirname, '../fixtures');
 
-    // Select and upload file
-    // Use setInputFiles instead
-    await page.locator('#selectFileBtn').click();
-    const fileChooser = await fileChooserPromise;
-    await fileChooser.setFiles(path.join(fixturesDir, 'success-test.pdf'));
+    // Select and upload file (headless-safe)
+    await page.setInputFiles('#fileInput', path.join(fixturesDir, 'success-test.pdf'));
 
     await page.locator('#uploadBtn').click();
 
@@ -82,11 +76,8 @@ startxref
 
     const fixturesDir = path.join(__dirname, '../fixtures');
 
-    // Upload file
-    // Use setInputFiles instead
-    await page.locator('#selectFileBtn').click();
-    const fileChooser = await fileChooserPromise;
-    await fileChooser.setFiles(path.join(fixturesDir, 'success-test.pdf'));
+    // Upload file (headless-safe)
+    await page.setInputFiles('#fileInput', path.join(fixturesDir, 'success-test.pdf'));
 
     await page.locator('#uploadBtn').click();
 
@@ -101,11 +92,8 @@ startxref
 
     const fixturesDir = path.join(__dirname, '../fixtures');
 
-    // Upload file
-    // Use setInputFiles instead
-    await page.locator('#selectFileBtn').click();
-    const fileChooser = await fileChooserPromise;
-    await fileChooser.setFiles(path.join(fixturesDir, 'success-test.pdf'));
+    // Upload file (headless-safe)
+    await page.setInputFiles('#fileInput', path.join(fixturesDir, 'success-test.pdf'));
 
     await page.locator('#uploadBtn').click();
 
@@ -129,11 +117,8 @@ test.describe('FR-007: Error Handling and Retry', () => {
     // Simulate network error by going offline
     await context.setOffline(true);
 
-    // Select and try to upload file
-    // Use setInputFiles instead
-    await page.locator('#selectFileBtn').click();
-    const fileChooser = await fileChooserPromise;
-    await fileChooser.setFiles(path.join(fixturesDir, 'success-test.pdf'));
+    // Select and try to upload file (headless-safe)
+    await page.setInputFiles('#fileInput', path.join(fixturesDir, 'success-test.pdf'));
 
     await page.locator('#uploadBtn').click();
 
@@ -161,11 +146,8 @@ test.describe('FR-007: Error Handling and Retry', () => {
       });
     });
 
-    // Select and upload file
-    // Use setInputFiles instead
-    await page.locator('#selectFileBtn').click();
-    const fileChooser = await fileChooserPromise;
-    await fileChooser.setFiles(path.join(fixturesDir, 'success-test.pdf'));
+    // Select and upload file (headless-safe)
+    await page.setInputFiles('#fileInput', path.join(fixturesDir, 'success-test.pdf'));
 
     await page.locator('#uploadBtn').click();
 
@@ -186,11 +168,8 @@ test.describe('FR-007: Error Handling and Retry', () => {
     // Simulate network error
     await context.setOffline(true);
 
-    // Upload file
-    // Use setInputFiles instead
-    await page.locator('#selectFileBtn').click();
-    const fileChooser = await fileChooserPromise;
-    await fileChooser.setFiles(path.join(fixturesDir, 'success-test.pdf'));
+    // Upload file (headless-safe)
+    await page.setInputFiles('#fileInput', path.join(fixturesDir, 'success-test.pdf'));
 
     await page.locator('#uploadBtn').click();
 
@@ -213,10 +192,8 @@ test.describe('FR-007: Error Handling and Retry', () => {
     // First attempt: offline
     await context.setOffline(true);
 
-    // Use setInputFiles instead
-    await page.locator('#selectFileBtn').click();
-    const fileChooser = await fileChooserPromise;
-    await fileChooser.setFiles(path.join(fixturesDir, 'success-test.pdf'));
+    // Select file (headless-safe)
+    await page.setInputFiles('#fileInput', path.join(fixturesDir, 'success-test.pdf'));
 
     await page.locator('#uploadBtn').click();
     await page.waitForTimeout(2000);
@@ -253,11 +230,8 @@ test.describe('FR-007: Error Handling and Retry', () => {
       });
     });
 
-    // Upload file
-    // Use setInputFiles instead
-    await page.locator('#selectFileBtn').click();
-    const fileChooser = await fileChooserPromise;
-    await fileChooser.setFiles(path.join(fixturesDir, 'success-test.pdf'));
+    // Upload file (headless-safe)
+    await page.setInputFiles('#fileInput', path.join(fixturesDir, 'success-test.pdf'));
 
     await page.locator('#uploadBtn').click();
 

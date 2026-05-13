@@ -22,26 +22,10 @@ test.describe('FR-001: File Selection Interface', () => {
   test('AC-002: Clicking button triggers file input dialog', async ({ page }) => {
     await page.goto('/');
 
-    // Monitor click event on file input
-    await page.evaluate(() => {
-      const fileInput = document.getElementById('fileInput') as HTMLInputElement;
-      (window as any).__fileInputClicked = false;
-      fileInput.addEventListener('click', () => {
-        (window as any).__fileInputClicked = true;
-      });
-    });
-
-    // Click the visible button
+    const fileChooserPromise = page.waitForEvent('filechooser', { timeout: 5000 });
     await page.locator('#selectFileBtn').click();
-
-    // Verify file input click was triggered
-    const wasClicked = await page.evaluate(() => (window as any).__fileInputClicked);
-    expect(wasClicked).toBe(true);
-
-    // Verify file input functionality by setting files programmatically
-    // Use setInputFiles instead
-    await page.locator('#fileInput').evaluate(input => (input as HTMLInputElement).click());
     const fileChooser = await fileChooserPromise;
+
     expect(fileChooser).toBeTruthy();
   });
 

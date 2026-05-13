@@ -64,11 +64,8 @@ startxref
       }
     });
 
-    // Select and upload file
-    // Use setInputFiles instead
-    await page.locator('#selectFileBtn').click();
-    const fileChooser = await fileChooserPromise;
-    await fileChooser.setFiles(path.join(fixturesDir, 'valid.pdf'));
+    // Select file (headless-safe)
+    await page.setInputFiles('#fileInput', path.join(fixturesDir, 'valid.pdf'));
 
     // Click upload button
     await page.locator('#uploadBtn').click();
@@ -88,11 +85,8 @@ startxref
 
     const fixturesDir = path.join(__dirname, '../fixtures');
 
-    // Select file
-    // Use setInputFiles instead
-    await page.locator('#selectFileBtn').click();
-    const fileChooser = await fileChooserPromise;
-    await fileChooser.setFiles(path.join(fixturesDir, 'valid.pdf'));
+    // Select file (headless-safe)
+    await page.setInputFiles('#fileInput', path.join(fixturesDir, 'valid.pdf'));
 
     // Track upload start time
     const startTime = Date.now();
@@ -125,11 +119,8 @@ startxref
       }
     });
 
-    // Select and upload file
-    // Use setInputFiles instead
-    await page.locator('#selectFileBtn').click();
-    const fileChooser = await fileChooserPromise;
-    await fileChooser.setFiles(path.join(fixturesDir, 'valid.pdf'));
+    // Select and upload file (headless-safe)
+    await page.setInputFiles('#fileInput', path.join(fixturesDir, 'valid.pdf'));
 
     await page.locator('#uploadBtn').click();
 
@@ -156,11 +147,8 @@ startxref
       }
     });
 
-    // Select and upload file
-    // Use setInputFiles instead
-    await page.locator('#selectFileBtn').click();
-    const fileChooser = await fileChooserPromise;
-    await fileChooser.setFiles(path.join(fixturesDir, 'valid.pdf'));
+    // Select and upload file (headless-safe)
+    await page.setInputFiles('#fileInput', path.join(fixturesDir, 'valid.pdf'));
 
     await page.locator('#uploadBtn').click();
 

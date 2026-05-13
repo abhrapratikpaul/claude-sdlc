@@ -1,2 +1,55 @@
-.vscode/*
+.vscode/
 .mcp.json
+test-results/
+node_modules/
+
+# Python caches / virtualenvs
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.venv/
+venv/
+ENV/
+env/
+
+# Build artifacts
+build/
+dist/
+*.egg-info/
+
+# Playwright artifacts
+playwright-report/
+test-automation/playwright-report/
+test-automation/test-results/
+ms-playwright/
+**/trace.zip
+
+# Runtime uploads / generated content
+upload/
+
+# Media artifacts (avoid committing recordings)
+*.webm
+*.mp4
+*.mov
+*.mkv
+*.avi
+
+# Logs / temp files
+*.log
+*.tmp
+
+# OS / editor noise
+Thumbs.db
+.DS_Store
+
+# Local workspace settings
+.claude/settings.local.json
+
+# Generated reports
+sdlc-execution-report.html
+
+# Environment / secrets
+.env
+.env.*

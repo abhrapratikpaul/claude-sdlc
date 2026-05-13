@@ -45,18 +45,14 @@ startxref
 
     const fixturesDir = path.join(__dirname, '../fixtures');
 
-    // Try uploading .txt file
-    // Use setInputFiles instead
-    await page.locator('#selectFileBtn').click();
-    const fileChooser = await fileChooserPromise;
-
     // Create a text file
     const txtFile = path.join(fixturesDir, 'test.txt');
     if (!fs.existsSync(txtFile)) {
       fs.writeFileSync(txtFile, 'Test content');
     }
 
-    await fileChooser.setFiles(txtFile);
+    // Try uploading .txt file (headless-safe)
+    await page.setInputFiles('#fileInput', txtFile);
 
     // Verify client-side validation rejects it
     const messageArea = page.locator('#messageArea');
@@ -78,11 +74,8 @@ startxref
       fs.writeFileSync(jpegFile, jpegHeader);
     }
 
-    // Try uploading non-PDF with wrong MIME type
-    // Use setInputFiles instead
-    await page.locator('#selectFileBtn').click();
-    const fileChooser = await fileChooserPromise;
-    await fileChooser.setFiles(jpegFile);
+    // Try uploading non-PDF with wrong MIME type (headless-safe)
+    await page.setInputFiles('#fileInput', jpegFile);
 
     // Verify client-side MIME validation
     const messageArea = page.locator('#messageArea');
@@ -121,10 +114,8 @@ startxref
     // (Should pass basic validation since virus scanning is out of scope)
     const maliciousPdf = path.join(fixturesDir, 'malicious.pdf');
 
-    // Use setInputFiles instead
-    await page.locator('#selectFileBtn').click();
-    const fileChooser = await fileChooserPromise;
-    await fileChooser.setFiles(maliciousPdf);
+    // Select file (headless-safe)
+    await page.setInputFiles('#fileInput', maliciousPdf);
 
     await page.locator('#uploadBtn').click();
 
