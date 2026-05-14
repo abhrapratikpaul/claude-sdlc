@@ -13,8 +13,6 @@
 - **[commands/run-tests.md](commands/run-tests.md)** - Run verification tests
 
 ### For Developers
-- **[../MIGRATION_GUIDE.md](../MIGRATION_GUIDE.md)** - Copilot → Claude transformation guide
-- **[../TRANSFORMATION_SUMMARY.md](../TRANSFORMATION_SUMMARY.md)** - Transformation overview
 - **[rules/](rules/)** - Enforcement rules
 - **[instructions/](instructions/)** - Code guidelines
 
@@ -165,9 +163,6 @@ Configured servers:
 📁 Project Root
 ├── 📄 CLAUDE.md                    # Workspace instructions (START HERE)
 ├── 📄 README.md                    # Project overview
-├── 📄 MIGRATION_GUIDE.md           # Copilot → Claude guide
-├── 📄 TRANSFORMATION_SUMMARY.md    # Transformation overview
-│
 ├── 📁 .claude/
 │   ├── 📄 INDEX.md                 # This file
 │   │
@@ -275,12 +270,6 @@ Configured servers:
 3. Study **[skills/](skills/)** - Skill implementations
 4. Customize agents/rules for your needs
 
-### 4. Migrating from Copilot
-1. Read **[../MIGRATION_GUIDE.md](../MIGRATION_GUIDE.md)** - Complete migration guide
-2. Read **[../TRANSFORMATION_SUMMARY.md](../TRANSFORMATION_SUMMARY.md)** - What changed
-3. Compare before/after examples
-4. Follow verification checklist
-
 ## 🔗 External Resources
 
 - **Claude Code**: https://claude.ai/code
@@ -311,7 +300,6 @@ Configured servers:
 | Learn commands | [commands/](commands/) |
 | Check status | "What's the status?" |
 | Understand rules | [rules/](rules/) |
-| Migrate from Copilot | [../MIGRATION_GUIDE.md](../MIGRATION_GUIDE.md) |
 | Understand project | [../README.md](../README.md) |
 
 ---

@@ -10,7 +10,7 @@ argument-hint: "Optional: milestone/timebox"
 
 > **Plan everything. Code nothing.**
 
-Produce an implementation plan with enough context that a **fresh Copilot session** (no prior chat history) can execute it correctly.
+Produce an implementation plan with enough context that a **fresh session** (no prior chat history) can execute it correctly.
 
 ## Inputs
 Read in this order:

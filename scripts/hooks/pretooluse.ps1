@@ -1,6 +1,6 @@
 $ErrorActionPreference = 'Stop'
 
-# Copilot Hook: PreToolUse
+# Hook: PreToolUse
 # Simple check: ask before tool use when payload appears to include hardcoded secrets.
 
 function Write-AskDecision {

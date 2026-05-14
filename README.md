@@ -107,66 +107,39 @@ Configured in `.mcp.json`:
 - **EPAM Jira MCP**: Ticket fetching, requirements extraction
 - **EPAM Confluence MCP**: Documentation retrieval
 
-## 🎓 Key Transformation: GitHub Copilot → Claude Code
-
-This project was **transformed from a GitHub Copilot setup to Claude Code**. Here's what changed:
-
-### What We Changed
-
 #### 1. Agent System
-**Before (Copilot)**: Basic prompts in `.github/copilot-instructions.md`  
-**After (Claude)**: 8 specialized agents in `.claude/agents/*.agent.md` with:
 - Clear role definitions
 - Tool restrictions per agent
 - Phase-specific expertise
 - Handoff protocols
 
 #### 2. Tool Usage
-**Before (Copilot)**: Generic bash commands  
-**After (Claude)**: Specialized Claude Code tools
 - `Read` instead of `cat`
 - `Grep` instead of `grep/rg`
 - `Glob` instead of `find`
 - `Edit` instead of `sed/awk`
 
 #### 3. Rules System
-**Before (Copilot)**: Implicit guidelines  
-**After (Claude)**: Explicit rules in `.claude/rules/`
 - `claude-code-best-practices.md` - Tool selection, agent patterns
 - `sdlc-workflow.md` - Phase sequencing, quality gates
 - `mcp-integration.md` - MCP server usage
 
 #### 4. Commands & Workflows
-**Before (Copilot)**: Chat-based iteration  
-**After (Claude)**: Structured commands in `.claude/commands/`
 - `quick-start.md` - Getting started commands
 - `common-workflows.md` - Standard patterns
 - `example-prompts.md` - Natural language examples
 
 #### 5. Skills vs Prompts
-**Before (Copilot)**: Manual prompt engineering  
-**After (Claude)**: Reusable skills in `.claude/skills/`
+- Reusable skills in `.claude/skills/`
 - Invoked with `/skill-name`
 - Parameterized and composable
 - Built-in context management
 
 #### 6. MCP Integration
-**Before (Copilot)**: Manual API calls  
-**After (Claude)**: First-class MCP support
-- `.mcp.json` configuration
-- Authenticated server connections
-- Automatic token management
-
-### Migration Benefits
-
-1. **Stronger Guardrails**: Rules enforce best practices automatically
-2. **Better Tool Hygiene**: Dedicated tools instead of bash commands
-3. **Phase Discipline**: Agents can't skip or mix phases
-4. **Parallel Execution**: Independent agents run concurrently
-5. **Context Management**: Memory system for cross-session state
-6. **MCP Native**: Direct integration with Jira, Confluence, GitHub
-7. **Self-Healing Tests**: QA agent auto-fixes Playwright selectors
-8. **Structured Outputs**: Consistent document formats across phases
+Configured in `.mcp.json`:
+- **GitHub MCP**: PR creation, issue management
+- **EPAM Jira MCP**: Ticket fetching, requirements extraction
+- **EPAM Confluence MCP**: Documentation retrieval
 
 ## 📚 Usage Examples
 
@@ -432,7 +405,6 @@ This project is part of an EPAM AI-in-SDLC capstone and is intended for educatio
 ## 📞 Support
 
 - **Claude Code Issues**: https://github.com/anthropics/claude-code/issues
-- **Project Lead**: Reetanshu Kumar (reetanshu_kumar@epam.com)
 - **EPAM Confluence**: https://kb.epam.com
 - **EPAM Jira**: https://jiraeu.epam.com
 
