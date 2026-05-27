@@ -1,24 +1,32 @@
 import { defineConfig, devices } from '@playwright/test';
+import path from 'path';
 
 /**
- * Playwright configuration for PDF Upload System verification.
- * Tests target Flask backend at http://localhost:5000
+ * Playwright configuration for Task Manager Application verification.
+ * Serves static dev/ directory via Playwright's built-in web server.
  */
 export default defineConfig({
   testDir: './tests',
-  fullyParallel: false, // Run tests serially for deterministic behavior
+  fullyParallel: false,
   forbidOnly: !!process.env.CI,
   retries: process.env.CI ? 2 : 0,
   workers: 1,
   reporter: [
-    ['html', { outputFolder: 'playwright-report' }],
+    ['html', { outputFolder: 'playwright-report', open: 'never' }],
     ['list']
   ],
   use: {
-    baseURL: 'http://localhost:5000',
+    baseURL: 'http://localhost:3333',
     trace: 'on-first-retry',
     screenshot: 'only-on-failure',
     video: 'retain-on-failure',
+  },
+
+  webServer: {
+    command: 'npx serve ../dev -p 3333',
+    url: 'http://localhost:3333',
+    reuseExistingServer: !process.env.CI,
+    timeout: 15000,
   },
 
   projects: [
@@ -28,9 +36,8 @@ export default defineConfig({
     },
   ],
 
-  // Timeout settings
-  timeout: 30000, // 30s per test
+  timeout: 30000,
   expect: {
-    timeout: 5000, // 5s for assertions
+    timeout: 5000,
   },
 });
