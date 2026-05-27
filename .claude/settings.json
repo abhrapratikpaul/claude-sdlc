@@ -1,0 +1,16 @@
+{
+  "hooks": {
+    "PreToolUse": [
+      {
+        "matcher": ".*",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "powershell -NoProfile -ExecutionPolicy Bypass -File scripts/hooks/pretooluse.ps1",
+            "timeout": 15
+          }
+        ]
+      }
+    ]
+  }
+}

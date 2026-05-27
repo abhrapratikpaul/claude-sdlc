@@ -51,15 +51,15 @@ Skill invocation:
    - Generates impl-plan.md with task breakdown
 
 5. **Implementation Phase**
-   - Writes Python code under dev/
+   - Writes code in the source folder declared by architecture.md
    - Follows impl-plan.md
 
 6. **Review Phase**
-   - Self-reviews code for quality/security
+   - Self-reviews code for quality/security against requirements.md
    - Produces findings report
 
 7. **Verification Phase**
-   - Generates Playwright tests under test-automation/
+   - Generates tests using the framework declared by architecture.md
    - Runs tests and produces report
 
 8. **PR Phase**
@@ -69,21 +69,25 @@ Skill invocation:
 
 ## Prerequisites
 
-- `user-story.md` exists at project root
-- OR Jira ticket ID provided
-- Environment variables set (GITHUB_PERSONAL_ACCESS_TOKEN, EPAM_JIRA_API_TOKEN)
+- Jira ticket ID provided (primary input — fetched via MCP)
+- OR `user-story.md` exists at project root as fallback
+- Environment variables set:
+  - `GITHUB_PERSONAL_ACCESS_TOKEN`
+  - `EPAM_JIRA_API_TOKEN`, `EPAM_JIRA_USERNAME`
+  - `EPAM_CONFLUENCE_API_TOKEN`, `EPAM_CONFLUENCE_USERNAME` (if Confluence pages are linked)
 
 ## Expected Duration
 
-~10-15 minutes for a typical feature
+~15-25 minutes for a typical feature (varies by complexity)
 
 ## Output
 
-- requirements.md
-- architecture.md
-- design-review.md
-- impl-plan.md
-- dev/**/*.py (implementation)
-- Review findings
-- test-automation/**/*.spec.ts (tests)
+- `user-story.md` (fetched from Jira)
+- `requirements.md`
+- `architecture.md`
+- `design-review.md`
+- `impl-plan.md`
+- Implementation code in the source folder declared by architecture.md
+- Review findings (in chat)
+- Verification tests in the test folder declared by architecture.md
 - GitHub PR

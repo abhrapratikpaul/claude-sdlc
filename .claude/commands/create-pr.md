@@ -50,30 +50,30 @@ Skill invocation:
 
 ```markdown
 ## Summary
-Brief description of what this PR accomplishes.
+Brief description of what this PR accomplishes and why.
 
 ## Changes
-- Modified `dev/src/docsync/sync.py` - added rate limiting
-- Added `dev/src/docsync/rate_limiter.py` - new rate limiter class
-- Updated `test-automation/tests/test-sync.spec.ts` - added rate limit tests
+- Modified `<source-folder>/feature.ext` - reason for change
+- Added `<source-folder>/new-module.ext` - reason for addition
+- Updated `<test-folder>/feature.spec.ext` - reason for test update
 
 ## Test Evidence
 ✅ All unit tests pass
-✅ All Playwright tests pass
-✅ Manual testing: verified sync works with rate limiting
-✅ Edge cases tested: empty documents, large documents, rate limit exceeded
+✅ All acceptance-criteria tests pass
+✅ Manual testing: verified core workflows
+✅ Edge cases tested: invalid inputs, boundary conditions
 
 ## Known Limitations
-- Rate limiter is in-memory only (resets on restart)
-- TODO: Persist rate limit state to disk
+- Any deferred features or known gaps
+- TODO items not in scope for this PR
 
 ## Reviewer Checklist
-- [ ] Code follows Python style guidelines
-- [ ] Type hints present on all functions
+- [ ] Code follows the language/framework conventions declared in architecture.md
 - [ ] Error handling covers edge cases
-- [ ] Tests cover acceptance criteria
+- [ ] Tests cover all acceptance criteria from requirements.md
 - [ ] No secrets committed
 - [ ] Documentation updated
+- [ ] No mixing of source and test tooling configs
 ```
 
 ## Approval Flow

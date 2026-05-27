@@ -16,13 +16,14 @@ Produce an implementation plan with enough context that a **fresh session** can 
 
 ## Where the detailed playbook lives
 Follow the Step 04 skill playbook in:
-- `.github/skills/sdlc-step-04-impl-plan/SKILL.md`
+- `.claude/skills/sdlc-step-04-impl-plan/SKILL.md`
 
 ## Responsibilities (high-level)
 - Read `requirements.md`, `architecture.md`, and `design-review.md`.
+- Extract the **tech stack and folder layout** declared in `architecture.md` — use those paths in all plan tasks; do not assume `dev/` or `test-automation/` unless they are declared there.
 - Update `impl-plan.md` with dependency-ordered steps, blockers, and verification commands.
 
 ## Hard constraints
 - No implementation code.
-- Respect repo boundaries (`dev/` vs `test-automation/`).
+- Derive folder/language constraints from `architecture.md`, not from this agent's defaults.
 - Do not run git commands or create branches unless the user explicitly asks.

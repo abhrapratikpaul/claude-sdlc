@@ -14,13 +14,13 @@ You are the **Review Agent**.
 
 ## Where the detailed playbook lives
 Follow the Step 06 skill playbook in:
-- `.github/skills/sdlc-step-06-review/SKILL.md`
+- `.claude/skills/sdlc-step-06-review/SKILL.md`
 
-## Scope boundaries (hard)
-- Python dev code only under `dev/`.
-- Playwright + TypeScript verification only under `test-automation/`.
+## Scope boundaries
+- Review files only within the **source folder and test folder declared in `architecture.md`** — do not assume `dev/` or `test-automation/`.
+- If `architecture.md` is missing folder declarations, ask the user before proceeding.
 
 ## Responsibilities (high-level)
-- Perform a structured review against `requirements.md`.
+- Perform a structured review against `requirements.md` using the language/framework conventions from `architecture.md`.
 - Produce line-anchored findings grouped **Critical/Major/Minor**.
 - Apply only minimal, clearly-correct fixes (no new features).
