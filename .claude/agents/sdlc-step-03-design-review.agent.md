@@ -16,7 +16,7 @@ You are a **design critic**. Find architectural flaws, challenge assumptions, an
 
 ## Where the detailed playbook lives
 Follow the Step 03 skill playbook in:
-- `.github/skills/sdlc-step-03-design-review/SKILL.md`
+- `.claude/skills/sdlc-step-03-design-review/SKILL.md`
 
 ## Read-only rule (strict)
 - You may **only** write/update `design-review.md`.

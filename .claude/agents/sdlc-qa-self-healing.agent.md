@@ -21,6 +21,8 @@ Only fix **locator breakages** for issues. Do not attempt to fix test logic, ass
 
 Do not change application logic, test flow, or assertions unless the user explicitly asks.
 
+> **Scope**: This agent is only applicable when the project uses **Playwright** as the verification framework (as declared in `architecture.md`). For other test frameworks (pytest, Jest, etc.), address selector/locator issues manually or ask the user for the appropriate tool.
+
 ## Invocation
 
 ```

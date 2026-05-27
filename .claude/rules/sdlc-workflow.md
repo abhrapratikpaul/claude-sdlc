@@ -1,11 +1,12 @@
 ---
 name: sdlc-workflow
-description: Enforces 8-phase SDLC workflow rules for the capstone project
+description: Enforces 8-phase SDLC workflow rules for any application driven by a Jira story
 priority: high
 paths: [
   "**/*.md",
   "**/*.py",
   "**/*.ts",
+  "**/*.js",
   "**/*.json"
 ]
 ---
@@ -18,16 +19,17 @@ Execute phases in strict order:
 2. **Architecture** → `architecture.md`
 3. **Design Review** → `design-review.md`
 4. **Implementation Plan** → `impl-plan.md`
-5. **Implementation** → `dev/**/*.py`
+5. **Implementation** → source folder declared in `architecture.md`
 6. **Review** → self-review findings
-7. **Verify** → `test-automation/**/*.spec.ts`
+7. **Verify** → test folder declared in `architecture.md`
 8. **PR** → GitHub PR with checklist
 
 ## File Location Constraints
-- **Python code**: ONLY in `dev/` (never in root or test-automation/)
-- **TypeScript tests**: ONLY in `test-automation/` (never in dev/)
+- **Source code**: ONLY in the source folder declared by `architecture.md` (never in root or test folder)
+- **Test code**: ONLY in the test folder declared by `architecture.md` (never in source folder)
 - **Documentation**: Root level (user-story.md, requirements.md, etc.)
-- **No mixing**: Never add Python tooling to test-automation/ or TS config to dev/
+- **No mixing**: Never add test tooling/config to the source folder or source tooling/config to the test folder
+- `architecture.md` is the single authority for both folder names and technology stack
 
 ## Documentation Consistency
 - `user-story.md` is the source of truth (immutable input)
@@ -96,11 +98,11 @@ Each phase has exit criteria:
 ### Review Gate
 - All critical findings resolved
 - Major findings have mitigation plan
-- Code follows Python dev guidelines
+- Code follows language/framework guidelines declared in `architecture.md`
 - Tests cover key scenarios
 
 ### Verification Gate
-- Playwright tests pass
+- Verification tests pass (framework declared in `architecture.md`)
 - Acceptance criteria verified
 - Test report generated
 - Failures triaged (test issue vs impl issue)

@@ -20,9 +20,10 @@ Produce actionable review feedback anchored to specific locations (`path:line`).
 ## Output
 - Review notes and safe in-scope fixes.
 
-## Scope boundaries (hard)
-- Python dev code only under `dev/`.
-- Playwright + TypeScript verification only under `test-automation/`.
+## Scope boundaries
+- Read `architecture.md` first to determine the **source folder** and **test folder** for this project.
+- Review only files within those declared folders.
+- If `architecture.md` is missing or does not declare folder layout, ask the user before proceeding.
 
 ## Before you start
 1. Identify what changed (or what should be reviewed) and read the relevant files fully.
@@ -46,20 +47,23 @@ Produce actionable review feedback anchored to specific locations (`path:line`).
 - No silent exception swallowing.
 - Errors actionable; consistent exit codes for CLI.
 
-#### 4) Code quality (Python)
-- Type hints on public functions.
+#### 4) Code quality (implementation language — per architecture.md)
+- Idiomatic style for the chosen language (type hints for Python, interfaces for TypeScript, etc.).
 - Small, single-responsibility functions; low nesting.
-- Prefer `pathlib.Path` for filesystem operations.
+- Proper use of language-standard file/path APIs.
 - Avoid duplicated logic.
 
-#### 5) Code quality (Playwright + TypeScript)
+#### 5) Code quality (test code — per architecture.md)
 - Deterministic tests (no arbitrary sleeps).
 - Repo-relative paths.
-- Specific assertions.
+- Specific, meaningful assertions.
+- Test runner conventions followed.
 
 #### 6) Dependencies & repo hygiene
-- No new dependencies without justification.
-- Python deps in `dev/`; Node deps in `test-automation/`.
+- No new dependencies without justification in an ADR or comment.
+- Source dependencies declared in the source folder's package manifest.
+- Test dependencies declared in the test folder's package manifest.
+- Never mix source and test tooling configs.
 
 #### 7) Documentation & operability
 - Commands to run are documented.

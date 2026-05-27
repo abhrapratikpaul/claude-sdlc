@@ -1,6 +1,6 @@
 ---
 name: sdlc-step-08-pr
-description: "Prepare a GitHub PR description (Summary/Changes/Test Evidence/Known Limitations/Reviewer Checklist) for the capstone."
+description: "Prepare a GitHub PR description (Summary/Changes/Test Evidence/Known Limitations/Reviewer Checklist) for any feature or application."
 argument-hint: "Optional: target branch + highlights"
 ---
 

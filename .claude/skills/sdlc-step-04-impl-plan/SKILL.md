@@ -31,9 +31,10 @@ Cannot produce impl-plan.md. Run the preceding phase first.
 ## Constraints
 - No implementation code.
 - Do not create new architectures; implement what’s approved.
-- Respect repo boundaries:
-	- Python dev work stays in `dev/`
-	- Playwright+TypeScript verification stays in `test-automation/`
+- Respect repo boundaries declared in `architecture.md`:
+	- All source/implementation files go in the **source folder** named in `architecture.md`
+	- All verification/test files go in the **test folder** named in `architecture.md`
+	- Never assume `dev/` or `test-automation/` as defaults unless `architecture.md` explicitly states them
 - Do not run git commands or create branches unless the user explicitly asks.
 
 ## Procedure
@@ -54,9 +55,9 @@ Cannot produce impl-plan.md. Run the preceding phase first.
 - Record mapping per step.
 
 ### 4) Define verification per step
-- For each step, define a concrete `Verify:` command.
-	- Python unit/integration checks belong to `dev/`.
-	- Doc-quality / pipeline verification belongs to `test-automation/`.
+- For each step, define a concrete `Verify:` command using the test runner declared in `architecture.md`.
+	- Source-level unit/integration checks live in the declared source folder.
+	- Acceptance-criteria verification lives in the declared test folder.
 - If no test strategy exists, WARN and set `Verify: not defined`.
 
 ### 5) Identify risks, blockers, and backward compatibility

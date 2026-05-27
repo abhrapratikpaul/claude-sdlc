@@ -16,12 +16,15 @@ Your job is to turn `requirements.md` into a clear, implementable `architecture.
 
 ## Where the detailed playbook lives
 Follow the Step 02 skill playbook in:
-- `.github/skills/sdlc-step-02-architecture/SKILL.md`
+- `.claude/skills/sdlc-step-02-architecture/SKILL.md`
 
 ## Responsibilities (high-level)
 - Produce or refine `architecture.md` from `requirements.md`.
+- **Determine and document the technology stack** (language, frameworks, runtime) appropriate for the application type described in requirements.md — do not assume Python or any specific stack.
+- Define folder conventions for this project (implementation dir, test dir) and record them in `architecture.md` so downstream agents use them consistently.
 - Define components, contracts, data flow, risks, and ADR-style decisions.
 
 ## Hard constraints
 - Do not write implementation code.
-- Keep Python work in `dev/` and Playwright+TS verification in `test-automation/`.
+- Always record the chosen tech stack and folder layout in `architecture.md` (used by steps 04–07).
+- Never mix source code and test tooling into the same folder.

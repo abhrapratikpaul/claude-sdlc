@@ -5,7 +5,7 @@
 ### Getting Started
 - **[../CLAUDE.md](../CLAUDE.md)** - Complete workspace instructions
 - **[../README.md](../README.md)** - Project overview and usage guide
-- **[commands/quick-start.md](commands/quick-start.md)** - Quick start commands
+- **[commands/run-full-pipeline.md](commands/run-full-pipeline.md)** - Run complete SDLC pipeline
 
 ### For Users
 - **[commands/run-full-pipeline.md](commands/run-full-pipeline.md)** - Run complete SDLC
@@ -93,7 +93,7 @@ Located in `commands/` - one command per file
    - Usage: "What's the status?" or "Check SDLC progress"
 
 4. **[run-tests.md](commands/run-tests.md)**
-   - Run Playwright verification tests
+   - Run verification tests (framework from architecture.md)
    - Usage: `/sdlc-step-07-verify` or "Run tests"
 
 5. **[fetch-jira-ticket.md](commands/fetch-jira-ticket.md)**
@@ -104,49 +104,13 @@ Located in `commands/` - one command per file
    - Create GitHub PR with description
    - Usage: `/sdlc-step-08-pr` or "Create PR"
 
-## 📋 Instructions (3)
-
-Located in `instructions/`
-
-1. **[python-dev.instructions.md](instructions/python-dev.instructions.md)**
-   - Applies to: `dev/**`
-   - Python code standards
-   - CLI design patterns
-   - Type hints and validation
-   - Error handling
-
-2. **[playwright-test-automation.instructions.md](instructions/playwright-test-automation.instructions.md)**
-   - Applies to: `test-automation/**`
-   - TypeScript test standards
-   - Playwright patterns
-   - Selector strategies
-   - Test organization
-
-3. **[project-docs.instructions.md](instructions/project-docs.instructions.md)**
-   - Applies to: `*.md` at root
-   - Documentation standards
-   - Format consistency
-   - SDLC artifact structure
-
-## 🎤 Prompts (8)
-
-Located in `prompts/`
-
-Phase-specific prompts for each SDLC step:
-1. **[sdlc-01-requirements.prompt.md](prompts/sdlc-01-requirements.prompt.md)**
-2. **[sdlc-02-architecture.prompt.md](prompts/sdlc-02-architecture.prompt.md)**
-3. **[sdlc-03-design-review.prompt.md](prompts/sdlc-03-design-review.prompt.md)**
-4. **[sdlc-04-impl-plan.prompt.md](prompts/sdlc-04-impl-plan.prompt.md)**
-5. **[sdlc-05-implementation.prompt.md](prompts/sdlc-05-implementation.prompt.md)**
-6. **[sdlc-06-review.prompt.md](prompts/sdlc-06-review.prompt.md)**
-7. **[sdlc-07-verify.prompt.md](prompts/sdlc-07-verify.prompt.md)**
-8. **[sdlc-08-pr.prompt.md](prompts/sdlc-08-pr.prompt.md)**
-
 ## 🔧 Hooks
 
-Located in `hooks/`
+Hook is wired via `.claude/settings.json` (project-level) using a `PreToolUse` handler.
 
-- **[hooks.json](hooks/hooks.json)** - Hook configuration
+- **[settings.json](../settings.json)** — registers the PreToolUse hook
+- **[hooks/hooks.json](hooks/hooks.json)** — legacy hook config (reference only; not auto-loaded)
+- **[../scripts/hooks/pretooluse.ps1](../scripts/hooks/pretooluse.ps1)** — scans tool inputs for hardcoded secrets
 
 ## 🔌 MCP Configuration
 
@@ -163,8 +127,16 @@ Configured servers:
 📁 Project Root
 ├── 📄 CLAUDE.md                    # Workspace instructions (START HERE)
 ├── 📄 README.md                    # Project overview
+├── 📄 .mcp.json                    # MCP server config
+├── 📄 user-story.md                # Phase 1 input (from Jira)
+├── 📄 requirements.md              # Phase 1 output
+├── 📄 architecture.md              # Phase 2 output (declares tech stack + folders)
+├── 📄 design-review.md             # Phase 3 output
+├── 📄 impl-plan.md                 # Phase 4 output
+│
 ├── 📁 .claude/
 │   ├── 📄 INDEX.md                 # This file
+│   ├── 📄 settings.json            # Hook registration (PreToolUse)
 │   │
 │   ├── 📁 agents/                  # 10 specialized agents
 │   │   ├── sdlc.agent.md
@@ -173,9 +145,12 @@ Configured servers:
 │   │   └── sdlc-qa-self-healing.agent.md
 │   │
 │   ├── 📁 commands/                # Usage guides
-│   │   ├── quick-start.md          # Getting started
-│   │   ├── common-workflows.md     # Standard patterns
-│   │   └── example-prompts.md      # Natural language examples
+│   │   ├── run-full-pipeline.md
+│   │   ├── resume-from-phase.md
+│   │   ├── check-status.md
+│   │   ├── run-tests.md
+│   │   ├── fetch-jira-ticket.md
+│   │   └── create-pr.md
 │   │
 │   ├── 📁 rules/                   # Enforcement rules
 │   │   ├── claude-code-best-practices.md
@@ -187,26 +162,14 @@ Configured servers:
 │   │   ├── ... (8 phase skills)
 │   │   └── sdlc-step-08-pr/SKILL.md
 │   │
-│   ├── 📁 instructions/            # Code guidelines
-│   │   ├── python-dev.instructions.md
-│   │   ├── playwright-test-automation.instructions.md
-│   │   └── project-docs.instructions.md
-│   │
-│   ├── 📁 prompts/                 # Phase-specific prompts
-│   │   ├── sdlc-01-requirements.prompt.md
-│   │   ├── ... (8 phase prompts)
-│   │   └── sdlc-08-pr.prompt.md
-│   │
-│   └── 📁 hooks/                   # Hook configuration
+│   └── 📁 hooks/                   # Legacy hook config (reference only)
 │       └── hooks.json
 │
-├── 📁 dev/                         # Python implementation
-│   └── src/docsync/
+├── 📁 scripts/hooks/               # Hook scripts
+│   └── pretooluse.ps1              # Scans for hardcoded secrets
 │
-├── 📁 test-automation/             # Playwright tests
-│   └── tests/
-│
-└── 📄 .mcp.json                    # MCP server config
+└── 📁 <source-folder>/             # Implementation code (name from architecture.md)
+└── 📁 <test-folder>/               # Verification tests (name from architecture.md)
 ```
 
 ## 🎯 Common Tasks
@@ -278,12 +241,6 @@ Configured servers:
 - **EPAM Jira**: https://jiraeu.epam.com
 - **EPAM Confluence**: https://kb.epam.com
 
-## 📞 Support
-
-- **Project Lead**: Reetanshu Kumar (reetanshu_kumar@epam.com)
-- **Claude Code Issues**: https://github.com/anthropics/claude-code/issues
-- **Internal**: EPAM AI-in-SDLC Capstone Team
-
 ## 🎉 Quick Reference
 
 | I want to... | Command/File |
@@ -304,6 +261,6 @@ Configured servers:
 
 ---
 
-**Last Updated**: 2026-05-11  
-**Version**: 1.0  
+**Last Updated**: 2026-05-27  
+**Version**: 1.1  
 **Status**: Production Ready

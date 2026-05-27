@@ -33,7 +33,7 @@ Produce **zero implementation code**.
 	- at least **2 alternatives**
 	- consequences
 - NEVER leave boundaries vague:
-	- call out what belongs in `dev/` (Python) vs `test-automation/` (Playwright/TS)
+	- call out what belongs in the **source folder** vs the **test folder** (names derived from the chosen tech stack and project type — e.g. `src/`, `app/`, `backend/` for source; `tests/`, `spec/`, `test-automation/` for tests)
 - NEVER ignore backward compatibility:
 	- if changing an interface/doc structure, describe blast radius and migration path
 
@@ -43,7 +43,8 @@ Ensure `architecture.md` contains (at minimum):
 - **Proposed solution**
 	- Components (responsibilities + boundaries)
 	- Data flow
-	- Tech choices (Python for `dev/`, Playwright+TS for `test-automation/`)
+	- Tech choices: **language, framework, runtime** chosen for this application type, with rationale (ADR-style)
+	- **Folder layout**: explicit source folder name and test folder name (used by all downstream phases)
 - **Contracts**
 	- CLI/API contract (if any)
 	- File inputs/outputs (paths, formats)
@@ -52,8 +53,8 @@ Ensure `architecture.md` contains (at minimum):
 	- ADR-001, ADR-002, ...
 	- Each ADR includes: context, decision, alternatives (≥2), consequences
 - **Testing strategy**
-	- unit/integration targets (Python)
-	- verification targets (Playwright/TS doc-quality checks)
+	- unit/integration targets (language-native test runner)
+	- verification targets and acceptance criteria checks (framework selected in this doc)
 - **Security considerations**
 	- external input validation, secrets handling, and least-privilege assumptions
 - **Risks** and **Open questions**

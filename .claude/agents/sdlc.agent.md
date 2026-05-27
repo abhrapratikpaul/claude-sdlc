@@ -1,11 +1,11 @@
 ---
 name: sdlc
 description: >
-  End-to-end gated SDLC orchestrator for this capstone repo — runs all 8 phases
+  End-to-end gated SDLC orchestrator — runs all 8 phases
   (requirements → architecture → design review → impl plan → implementation →
-  review → verify → PR) by handing off to the step agents. Invoke as `@sdlc`,
-  `@sdlc from=<phase>`, or `@sdlc resume`. Not for single-phase work — use the
-  step agent directly (e.g., `@sdlc-step-02-architecture`).
+  review → verify → PR) for any application or feature driven by a Jira story.
+  Invoke as `@sdlc`, `@sdlc from=<phase>`, or `@sdlc resume`.
+  Not for single-phase work — use the step agent directly (e.g., `@sdlc-step-02-architecture`).
 tools: [Read, Edit, Grep, Glob, Bash, Agent]
 handoffs:
   - sdlc-step-01-requirements

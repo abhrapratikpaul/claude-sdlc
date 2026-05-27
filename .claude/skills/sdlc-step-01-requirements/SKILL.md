@@ -10,22 +10,23 @@ argument-hint: "Confirm where the user story came from and any constraints"
 Turn the user story into **testable, unambiguous requirements**.
 
 ## Inputs
-- Primary: `user-story.md` at repo root (preferred source input)
-- Optional: Jira/Confluence context (user-provided text/links/sanitized exports)
+- **Primary**: Jira story key provided by the user (e.g. `PROJ-1234`). Fetch via **epam-jira** MCP tool — pull `summary`, `description`, acceptance criteria, priority, labels, linked Confluence pages, and comments.
+- **Fallback**: If MCP is unavailable or the Jira ticket lacks detail, ask the user to paste/export the content into chat or `user-story.md`.
+- After fetching, write/update `user-story.md` with the fetched content for traceability.
 
-## Fetch Jira/Confluence ticket context (optional, only if user-story.md is insufficient)
-Prefer using the **epam-jira** MCP tool configured to fetch JIRA ticket context.
+## Fetch Jira/Confluence ticket context
+Use the **epam-jira** MCP tool (`EPAM_JIRA_API_TOKEN` env var) as the first choice.
 
-- Jira: MCP server `epam-jira` (uses `EPAM_JIRA_API_TOKEN` from your environment)
+Pull at minimum: `summary`, `description`, acceptance criteria, labels, priority.  
+Also pull: relevant comments, linked Confluence sections, and epic context when present.
 
-Pull (at minimum) `summary` and `description`, plus acceptance criteria and relevant comments/linked Confluence sections when present.
-
-Fallbacks (when MCP tools are not available in the current chat toolset):
+Fallbacks (when MCP unavailable):
 - Ask the user to paste/export the Jira/Confluence content into chat or `user-story.md`.
-- Or use a local REST call via terminal (e.g., PowerShell `Invoke-RestMethod`) with environment variables; never write tokens to files or echo them in logs.
+- Or use a local REST call via terminal with environment variables; never write tokens to files or echo them in logs.
 
 ## Output
-- Update `requirements.md` with FR/NFR/AC items.
+- Update `user-story.md` with fetched Jira content (for traceability).
+- Update `requirements.md` with FR/NFR/AC items **plus** a **Tech Stack Hints** section (inferred from the story domain, labels, and description).
 
 ## Constraints (quality bar)
 - Use **"shall"** language for requirements.
